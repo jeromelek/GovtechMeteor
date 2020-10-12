@@ -8,11 +8,11 @@ class App extends Component {
   constructor() {
     super();
     this.onDateChange = this.onDateChange.bind(this);
-    this.state = { selectedDate: new Date() }
+    this.state = { date: new Date()}
   }
 
   onDateChange(newInput) {
-    let newDateTime = new Date(this.state.selectedDate);
+    let newDateTime = new Date(this.state.date);
 
     if (newInput != null) {
       if (typeof (newInput) == "string") {
@@ -25,27 +25,39 @@ class App extends Component {
         newDateTime.setMonth(newInput.getMonth());
         newDateTime.setFullYear(newInput.getFullYear());
       }
-      this.setState({ selectedDate: newDateTime })
+      this.setState({ date: newDateTime })
     }
   }
 
   render() {
     return (
       <div>
-          <Navbar className="navbar is-dark is-spaced">
-            <Navbar.Brand>
-              <Navbar.Item className="is-transparent">
-                <h1 className="title is-1 has-text-white">Meteor Assessment</h1>
-              </Navbar.Item>
-            </Navbar.Brand>
-          </Navbar>
+        <Navbar className="navbar is-dark is-spaced">
+          <Navbar.Brand>
+            <Navbar.Item className="is-transparent">
+              <h1 className="title is-1 has-text-white">Meteor Assessment</h1>
+            </Navbar.Item>
+          </Navbar.Brand>
+        </Navbar>
+
         <Section>
           <Container>
             <Columns>
               <h1 className="title is-2">Select date and time to view information</h1>
             </Columns>
             <Columns>
-              <DateTimePicker onDateChange={this.onDateChange} selectedDate={this.state.selectedDate} />
+              <DateTimePicker onDateChange={this.onDateChange} date={this.state.date} />
+            </Columns>
+          </Container>
+        </Section>
+
+        <Section>
+          <Container>
+            <Columns>
+              <h1 className="title is-2">List of Locations</h1>
+            </Columns>
+            <Columns>
+              <LocationData date={this.state.date} />
             </Columns>
           </Container>
         </Section>

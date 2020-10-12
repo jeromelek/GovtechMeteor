@@ -9,10 +9,10 @@ class DateTimePicker extends Component {
             <Container>
                 <Columns>
                     <Columns.Column>
-                        <DatePicker onChange={this.props.onDateChange} value={this.props.selectedDate}/>
+                        <DatePicker onChange={this.props.onDateChange} value={this.props.date}/>
                     </Columns.Column>
                     <Columns.Column>
-                        <TimePicker amPmAriaLabel="Select AM/PM" clearAriaLabel="Clear value" disableClock={true} onChange={this.props.onDateChange} value={this.props.selectedDate}/>
+                        <TimePicker amPmAriaLabel="Select AM/PM" clearAriaLabel="Clear value" disableClock={true} onChange={this.props.onDateChange} value={this.props.date}/>
                     </Columns.Column>
                 </Columns>
             </Container>
