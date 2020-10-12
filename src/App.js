@@ -1,31 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { Button } from 'react-bulma-components';
+import { Columns, Container, Navbar, Section } from 'react-bulma-components';
 import DateTimePicker from "./components/DateTimePicker";
+import LocationData from "./components/LocationData";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <DateTimePicker/>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Button color="primary">My Bulma button</Button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.onDateChange = this.onDateChange.bind(this);
+    this.state = { selectedDate: new Date() }
+  }
+
+  onDateChange(newInput) {
+    let newDateTime = new Date(this.state.selectedDate);
+
+    if (newInput != null) {
+      if (typeof (newInput) == "string") {
+        let hour = newInput.substring(0, 2);
+        let minute = newInput.substring(3, 5);
+        newDateTime.setHours(hour);
+        newDateTime.setMinutes(minute);
+      } else {
+        newDateTime.setDate(newInput.getDate());
+        newDateTime.setMonth(newInput.getMonth());
+        newDateTime.setFullYear(newInput.getFullYear());
+      }
+      this.setState({ selectedDate: newDateTime })
+    }
+  }
+
+  render() {
+    return (
+      <div>
+          <Navbar className="navbar is-dark is-spaced">
+            <Navbar.Brand>
+              <Navbar.Item className="is-transparent">
+                <h1 className="title is-1 has-text-white">Meteor Assessment</h1>
+              </Navbar.Item>
+            </Navbar.Brand>
+          </Navbar>
+        <Section>
+          <Container>
+            <Columns>
+              <h1 className="title is-2">Select date and time to view information</h1>
+            </Columns>
+            <Columns>
+              <DateTimePicker onDateChange={this.onDateChange} selectedDate={this.state.selectedDate} />
+            </Columns>
+          </Container>
+        </Section>
+      </div>
+
+    );
+  }
 }
 
 export default App;
