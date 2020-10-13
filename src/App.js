@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { Columns, Container, Navbar, Section } from 'react-bulma-components';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Jumbotron, Navbar } from 'react-bootstrap';
 import DateTimePicker from "./components/DateTimePicker";
 import LocationData from "./components/LocationData";
 
@@ -31,38 +31,27 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Navbar className="navbar is-dark is-spaced">
-          <Navbar.Brand>
-            <Navbar.Item className="is-transparent">
-              <h1 className="title is-1 has-text-white">Meteor Assessment</h1>
-            </Navbar.Item>
-          </Navbar.Brand>
+      <div className="bg-light">
+        <Navbar bg="dark" variant="dark" className="shadow-sm">
+          <Container className="d-flex justify-content-between">
+            <Navbar.Brand>
+              <strong>Meteor Assessment</strong>
+            </Navbar.Brand>
+          </Container>
         </Navbar>
 
-        <Section>
+        <Jumbotron className="text-center bg-white">
           <Container>
-            <Columns>
-              <h1 className="title is-2">Select date and time to view information</h1>
-            </Columns>
-            <Columns>
-              <DateTimePicker onDateChange={this.onDateChange} date={this.state.date} />
-            </Columns>
+            <h1>Traffic Cam and Weather Forecast</h1>
+            <p className="lead text-muted">Select date and time to view information.</p>
+            <DateTimePicker onDateChange={this.onDateChange} date={this.state.date} />
           </Container>
-        </Section>
-
-        <Section>
-          <Container>
-            <Columns>
-              <h1 className="title is-2">List of Locations</h1>
-            </Columns>
-            <Columns>
-              <LocationData date={this.state.date} />
-            </Columns>
-          </Container>
-        </Section>
+        </Jumbotron>
+        
+        <Container className="bg-light text-center">
+          <LocationData date={this.state.date} />
+        </Container>
       </div>
-
     );
   }
 }

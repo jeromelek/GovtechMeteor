@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-date-picker';
 import TimePicker from 'react-time-picker';
-import { Container, Columns } from 'react-bulma-components';
+import { Container, Col, Row } from 'react-bootstrap';
 
 class DateTimePicker extends Component {
     render() {
         return (
             <Container>
-                <Columns>
-                    <Columns.Column>
+                <Row>
+                    <Col>
                         <DatePicker onChange={this.props.onDateChange} value={this.props.date}/>
-                    </Columns.Column>
-                    <Columns.Column>
+                    </Col>
+                    <Col>
                         <TimePicker amPmAriaLabel="Select AM/PM" clearAriaLabel="Clear value" disableClock={true} onChange={this.props.onDateChange} value={this.props.date}/>
-                    </Columns.Column>
-                </Columns>
+                    </Col>
+                </Row>
             </Container>
         );
     }
