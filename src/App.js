@@ -8,7 +8,7 @@ class App extends Component {
   constructor() {
     super();
     this.onDateChange = this.onDateChange.bind(this);
-    this.state = { date: new Date()}
+    this.state = { date: new Date() }
   }
 
   onDateChange(newInput) {
