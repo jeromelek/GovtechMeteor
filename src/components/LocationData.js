@@ -4,7 +4,7 @@ import { Col, Container, Card, CardDeck, Row } from 'react-bootstrap';
 class LocationData extends Component {
     constructor(props) {
         super(props);
-        this.state = { trafficImages: [], locationMetadata: [], weatherData: [], date: new Date() }
+        this.state = { trafficImages: [], locationMetadata: [], weatherData: [], date: new Date()}
     }
 
     //This method calls the traffic cam API and returns an array of Cameras with their respective images, location and timestamp
@@ -16,7 +16,7 @@ class LocationData extends Component {
             );
     }
 
-    // This method uses the array of cameras and adds the reverse lookup location information into the array.
+    // This method uses the array of cameras and adds all the information into the array.
     fetchReverseLocation(trafficImages){
         if(trafficImages == null) return;
         for (let i = 0; i < trafficImages.length; i++){
@@ -122,10 +122,11 @@ class LocationData extends Component {
 
     componentDidUpdate(){
         if(this.props.date !== this.state.date){
-            this.setState({date: this.props.date});
-            this.fetchWeather();
-            this.fetchTrafficImages();
-            console.log("update completed");
+            this.setState({date: this.props.date}, () => {
+                this.fetchWeather();
+                this.fetchTrafficImages();
+                console.log("update completed");
+            });
         }
         
     }
@@ -143,7 +144,6 @@ class LocationData extends Component {
         });
 
         filteredArray.sort(this.roadComparator);
-
 
         const listItems = filteredArray.map((trafficImage) => 
             <Col key={trafficImage.camera_id}>
