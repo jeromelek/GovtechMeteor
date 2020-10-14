@@ -63,7 +63,7 @@ class LocationList extends Component {
                     <Form.Control type="text" size="lg" onChange={this.handleChange} placeholder="Search by Road Name..." />
                 </Row>
                 <Row>
-                    <CardDeck classname='mx-auto'>
+                    <CardDeck className='mx-auto'>
                         {this.state.filtered.map(item => (
                             <Col key={item.camera_id}>
                                 <Fade in={true}>

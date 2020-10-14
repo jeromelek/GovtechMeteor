@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Container , Row } from 'react-bootstrap';
-import { findRenderedComponentWithType } from 'react-dom/test-utils';
+import { Container } from 'react-bootstrap';
 import LocationList from './LocationList';
 
 class LocationData extends Component {
