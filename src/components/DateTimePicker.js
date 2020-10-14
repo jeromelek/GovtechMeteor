@@ -8,12 +8,14 @@ class DateTimePicker extends Component {
         return (
             <Container>
                 <Row>
+                    <Col md={4}/>
                     <Col>
-                        <DatePicker onChange={this.props.onDateChange} value={this.props.date}/>
+                        <DatePicker onChange={this.props.onDateChange} value={this.props.date} clearIcon={null}/>
                     </Col>
                     <Col>
-                        <TimePicker amPmAriaLabel="Select AM/PM" clearAriaLabel="Clear value" disableClock={true} onChange={this.props.onDateChange} value={this.props.date}/>
+                        <TimePicker clearIcon={null} disableClock={true} onChange={this.props.onDateChange} format={"h:m a"} value={this.props.date}/>
                     </Col>
+                    <Col md={4}/>
                 </Row>
             </Container>
         );

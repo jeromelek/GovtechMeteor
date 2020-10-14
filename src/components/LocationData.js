@@ -128,14 +128,12 @@ class LocationData extends Component {
                 console.log("update completed");
             });
         }
-        
     }
 
     componentDidMount() {
         this.fetchWeather();
         this.fetchTrafficImages();
     }
-
 
     render() {
         //Filter the array to only return results (ignores null)
@@ -171,7 +169,6 @@ class LocationData extends Component {
                         {listItems}
                     </CardDeck>
                 </Row>
-                
             </Container>
         );
 
