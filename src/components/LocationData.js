@@ -37,6 +37,19 @@ class LocationData extends Component {
         }
     }
 
+    //This method calls the weather API to return the current weather
+    fetchWeather(){
+        fetch("https://api.data.gov.sg/v1/environment/2-hour-weather-forecast?date_time=" + this.props.date.toISOString().split('.')[0])
+        .then(res => res.json())
+        .then((result) => {
+            this.setState({ locationMetadata: result.area_metadata, weatherData: result.items[0].forecasts});
+        },
+            (error) => {
+                console.log(error)
+            }
+        );    
+    }
+
     //This method uses the weatherData and returns the current weather
     getWeather(area){
         for(let i = 0; i < this.state.weatherData.length; i++){
@@ -85,15 +98,32 @@ class LocationData extends Component {
         }
     }
 
+    //This method converts text to title case. It is used because the Onemap API returns all uppercase text
     toTitleCase(str) {
         return str.replace(/\w\S*/g, function(txt){
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         });
     }
 
+    //This is a comparator method for sorting of the arrays
+    roadComparator(a, b){
+        if(a.road > b.road){
+            return 1;
+        }else if(a.road < b.road){
+            return -1;
+        }
+        if(a.area > b.area){
+            return 1;
+        }else if(a.area < b.area){
+            return -1;
+        }
+        return 0;
+    }
+
     componentDidUpdate(){
         if(this.props.date !== this.state.date){
             this.setState({date: this.props.date});
+            this.fetchWeather();
             this.fetchTrafficImages();
             console.log("update completed");
         }
@@ -101,32 +131,34 @@ class LocationData extends Component {
     }
 
     componentDidMount() {
-        fetch("https://api.data.gov.sg/v1/environment/2-hour-weather-forecast?date_time=" + this.props.date.toISOString().split('.')[0])
-            .then(res => res.json())
-            .then((result) => {
-                this.setState({ locationMetadata: result.area_metadata, weatherData: result.items[0].forecasts});
-            },
-                (error) => {
-                    console.log(error)
-                }
-            );    
+        this.fetchWeather();
         this.fetchTrafficImages();
     }
 
 
     render() {
+        //Filter the array to only return results (ignores null)
         let filteredArray = this.state.trafficImages.filter(function (el) {
             return el != null;
         });
 
+        filteredArray.sort(this.roadComparator);
+
+
         const listItems = filteredArray.map((trafficImage) => 
             <Col key={trafficImage.camera_id}>
-                <Card style={{width: '18rem'}} className='mx-auto mb-4'>
-                    <Card.Img style={{height: '12rem'}} variant="top" src={trafficImage.image} />
+                <Card style={{width: '20rem', height: '25rem'}} className='mx-auto mb-4'>
+                    <Card.Img style={{height: '14rem'}} variant="top" src={trafficImage.image} />
                     <Card.Body>
-                        <Card.Title>{trafficImage.road}</Card.Title>
-                        <Card.Body>{trafficImage.area}</Card.Body>
-                        <Card.Link>{trafficImage.weather}</Card.Link>
+                        <Card.Title style={{height: '3rem'}}>{trafficImage.road}</Card.Title>
+                        <Row>
+                            <Col xs={4}><p className="text-left">Region: </p></Col>
+                            <Col xs={8}><p className="text-left">{trafficImage.area}</p></Col>
+                        </Row>
+                        <Row>
+                            <Col xs={4}><p className="text-left">Weather: </p></Col>
+                            <Col xs={8}><p className="text-left">{trafficImage.weather}</p></Col>
+                        </Row>
                     </Card.Body>
                 </Card>
             </Col>
