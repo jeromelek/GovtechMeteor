@@ -13,7 +13,7 @@ class DateTimePicker extends Component {
                         <DatePicker onChange={this.props.onDateChange} value={this.props.date} clearIcon={null}/>
                     </Col>
                     <Col>
-                        <TimePicker clearIcon={null} disableClock={true} onChange={this.props.onDateChange} format={"h:m a"} value={this.props.date}/>
+                        <TimePicker clearIcon={null} disableClock={true} onChange={this.props.onDateChange} format={"hh:mm:ss a"} value={this.props.date}/>
                     </Col>
                     <Col md={4}/>
                 </Row>

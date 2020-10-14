@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Col, Container, Card, CardDeck, Row } from 'react-bootstrap';
+import { Container , Row } from 'react-bootstrap';
+import { findRenderedComponentWithType } from 'react-dom/test-utils';
+import LocationList from './LocationList';
 
 class LocationData extends Component {
     constructor(props) {
@@ -143,32 +145,9 @@ class LocationData extends Component {
 
         filteredArray.sort(this.roadComparator);
 
-        const listItems = filteredArray.map((trafficImage) => 
-            <Col key={trafficImage.camera_id}>
-                <Card style={{width: '20rem', height: '25rem'}} className='mx-auto mb-4'>
-                    <Card.Img style={{height: '14rem'}} variant="top" src={trafficImage.image} />
-                    <Card.Body>
-                        <Card.Title style={{height: '3rem'}}>{trafficImage.road}</Card.Title>
-                        <Row>
-                            <Col xs={4}><p className="text-left">Region: </p></Col>
-                            <Col xs={8}><p className="text-left">{trafficImage.area}</p></Col>
-                        </Row>
-                        <Row>
-                            <Col xs={4}><p className="text-left">Weather: </p></Col>
-                            <Col xs={8}><p className="text-left">{trafficImage.weather}</p></Col>
-                        </Row>
-                    </Card.Body>
-                </Card>
-            </Col>
-        );
-
         return (
             <Container>
-                <Row className='mx-auto'>
-                    <CardDeck className='mx-auto'>
-                        {listItems}
-                    </CardDeck>
-                </Row>
+                <LocationList items={filteredArray}/>
             </Container>
         );
 
