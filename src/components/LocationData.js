@@ -142,6 +142,7 @@ class LocationData extends Component {
             return el != null;
         });
 
+        //Sort array based on comparator of road name, then area.
         filteredArray.sort(this.roadComparator);
 
         return (

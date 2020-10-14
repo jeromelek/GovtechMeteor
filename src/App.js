@@ -11,10 +11,14 @@ class App extends Component {
     this.state = { date: new Date() }
   }
 
+  //This method is triggered when date changes are made in DateTimePicker.
   onDateChange(newInput) {
     let newDateTime = new Date(this.state.date);
 
+    //Checks to ensure that there is a new date input
     if (newInput != null) {
+      
+      //If data type is String, it comes from the time-picker, only update the hour and minute. Otherwise, it comes from the date-picker, set date
       if (typeof (newInput) == "string") {
         let hour = newInput.substring(0, 2);
         let minute = newInput.substring(3, 5);
@@ -32,6 +36,7 @@ class App extends Component {
   render() {
     return (
       <div className="bg-light">
+
         <Navbar bg="dark" variant="dark" className="shadow-sm">
           <Container className="d-flex justify-content-between">
             <Navbar.Brand>
@@ -51,6 +56,7 @@ class App extends Component {
         <Container className="bg-light text-center">
           <LocationData date={this.state.date} />
         </Container>
+        
       </div>
     );
   }

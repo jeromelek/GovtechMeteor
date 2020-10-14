@@ -62,6 +62,7 @@ class LocationList extends Component {
                 <Row className="pb-5">
                     <Form.Control type="text" size="lg" onChange={this.handleChange} placeholder="Search by Road Name..." />
                 </Row>
+
                 <Row>
                     <CardDeck className='mx-auto'>
                         {this.state.filtered.map(item => (
@@ -85,7 +86,8 @@ class LocationList extends Component {
                             </Col>
                         ))}
                     </CardDeck>
-                </Row>    
+                </Row>
+
             </div>
         )
     }
