@@ -1,4 +1,4 @@
-#Govtech Meteor
+# Govtech Meteor
 The project is built for the Take-Home Frontend Technical Assessment.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
