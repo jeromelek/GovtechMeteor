@@ -27,11 +27,21 @@ class LocationData extends Component {
                         if(result.GeocodeInfo[0] != null){
                             trafficImages[i].road = this.toTitleCase(result.GeocodeInfo[0].ROAD);
                             trafficImages[i].area = this.getArea(trafficImages[i].location);
+                            trafficImages[i].weather = this.getWeather(trafficImages[i].area);
                         }else{
                             trafficImages[i] = null;
                         }
                         this.setState({trafficImages : trafficImages});
                 });
+            }
+        }
+    }
+
+    //This method uses the weatherData and returns the current weather
+    getWeather(area){
+        for(let i = 0; i < this.state.weatherData.length; i++){
+            if(this.state.weatherData[i].area === area){
+                return this.state.weatherData[i].forecast;
             }
         }
     }
@@ -116,7 +126,7 @@ class LocationData extends Component {
                     <Card.Body>
                         <Card.Title>{trafficImage.road}</Card.Title>
                         <Card.Body>{trafficImage.area}</Card.Body>
-                        <Card.Link>View Weather</Card.Link>
+                        <Card.Link>{trafficImage.weather}</Card.Link>
                     </Card.Body>
                 </Card>
             </Col>
